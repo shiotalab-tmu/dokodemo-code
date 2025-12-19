@@ -2,7 +2,7 @@
 VS Codeの統合ターミナル以外（個人PCのTerminalなど）で研究室マシンにSSH接続したとき，`code` コマンドでVS Codeを開けるようにするスクリプト．
 
 ## インストール
-1. `dokodemo-code.sh`を研究室マシンに配置してください．`/lhome/username/dokodemo-code.sh`を推奨．
+1. `dokodemo-code.sh`を研究室マシンに配置してください．`/lhome/{username}/dokodemo-code.sh`を推奨．
 2. 研究室マシンの `.bashrc` に以下を追記してください．
   ```sh
   source /path/to/dokodemo-code.sh

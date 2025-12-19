@@ -52,7 +52,7 @@ if [ "$TERM_PROGRAM" != "vscode" ]; then
     }
 
     # 青色のボタンにする（背景=青，文字=白，太字）
-    local btn_label=$'\e[1m\e[44m\e[37m  Ctrl+🖱️  Open in VS Code  \e[0m'
+    local btn_label=$'\e[1m\e[44m\e[37m  Ctrl+🖱️  Open in VSCode  \e[0m'
 
     printf '%b\n' "$(__osc8 "$vscode_url" "$btn_label")"
   }

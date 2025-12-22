@@ -1,7 +1,31 @@
 # VS Codeのターミナルでない場合のみ，カスタムcodeコマンドを定義
 if [ "$TERM_PROGRAM" != "vscode" ]; then
   code() {
-    local target_path="$1"
+    # オプション解析
+    local new_window=1  # デフォルトは新しいウィンドウで開く
+    local target_path=""
+
+    while [ $# -gt 0 ]; do
+      case "$1" in
+        -n|--new-window)
+          new_window=1
+          shift
+          ;;
+        -r|--reuse-window)
+          new_window=0
+          shift
+          ;;
+        -*)
+          echo "Error: Unknown option: $1" >&2
+          return 1
+          ;;
+        *)
+          target_path="$1"
+          shift
+          ;;
+      esac
+    done
+
     [ -z "$target_path" ] && target_path="."
 
     # 絶対パスを確定（ファイルなら :0:0 を付与）
@@ -42,6 +66,11 @@ if [ "$TERM_PROGRAM" != "vscode" ]; then
       vscode_url="vscode://vscode-remote/ssh-remote+${ssh_host}${abs_path}"
     else
       vscode_url="vscode://file${abs_path}"
+    fi
+
+    # open in new window flag (default)
+    if [ "$new_window" -eq 1 ]; then
+      vscode_url="${vscode_url}?windowId=_blank"
     fi
 
     # OSC 8リンク生成（labelは %b で解釈させる）

@@ -29,6 +29,18 @@ Remote-SSH用リンクのホスト名は次の優先順位で決定されます�
 
 研究室マシンへのSSH接続設定は[こちら](https://www.notion.so/PC-1ced54c353c880fa8860c3fa40f19733?source=copy_link#623160f7512d41838d17092e724bafb1)を参照してください．この設定を使用している場合，`VSCODE_SSH_HOST` の設定は不要です．
 
+## VSCodeターミナルからのSSH接続
+
+VS Code Remote-SSHで研究室マシンに接続し，その統合ターミナルからさらに別のマシンにSSH接続した場合に，`code`コマンドでdokodemo-codeが呼び出されます．
+
+判定条件：
+- SSH接続のクライアントIPアドレスが192.168.0.35-80の範囲である場合、研究室の計算機からの間接SSHと判定し、dokodemo-codeが自動的に有効化されます
+
+## オプション
+
+- `-n` / `--new-window`: 新しいウィンドウで開く（デフォルト）
+- `-r` / `--reuse-window`: 既存のウィンドウで開く
+
 ## 注意事項
 
 - リンクの開き方（Click／Ctrl+Click）は使用している端末の仕様に依存します

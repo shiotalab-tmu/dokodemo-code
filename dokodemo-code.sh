@@ -1,5 +1,31 @@
-# VS Codeのターミナルでない場合のみ，カスタムcodeコマンドを定義
-if [ "$TERM_PROGRAM" != "vscode" ]; then
+# dokodemo-codeを有効化すべきか判定する関数
+__should_enable() {
+  # TERM_PROGRAMがvscodeでない場合は常に有効
+  if [ "$TERM_PROGRAM" != "vscode" ]; then
+    return 0
+  fi
+
+  # SSH接続でない場合は無効
+  if [ -z "$SSH_CONNECTION" ]; then
+    return 1
+  fi
+
+  # SSH_CONNECTIONからクライアントIPを取得
+  local client_ip=$(echo "$SSH_CONNECTION" | awk '{print $1}')
+
+  # IPアドレスの第4オクテットを取得
+  local last_octet=$(echo "$client_ip" | awk -F. '{print $4}')
+
+  # 第4オクテットが35-80の範囲かチェック（研究室内部ネットワーク）
+  if [ "$last_octet" -ge 35 ] && [ "$last_octet" -le 80 ] 2>/dev/null; then
+    return 0
+  fi
+
+  return 1
+}
+
+# dokodemo-codeが有効な場合のみ，カスタムcodeコマンドを定義
+if __should_enable; then
   code() {
     # オプション解析
     local new_window=1  # デフォルトは新しいウィンドウで開く

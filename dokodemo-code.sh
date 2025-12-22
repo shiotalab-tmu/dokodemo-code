@@ -44,6 +44,9 @@ if [ "$TERM_PROGRAM" != "vscode" ]; then
       vscode_url="vscode://file${abs_path}"
     fi
 
+    # open in new window flag
+    vscode_url="${vscode_url}?windowId=_blank"
+
     # OSC 8リンク生成（labelは %b で解釈させる）
     __osc8() {
       local url="$1"

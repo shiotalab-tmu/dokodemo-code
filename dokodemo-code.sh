@@ -89,7 +89,7 @@ if __should_enable; then
     local vscode_url=""
     if [ "$is_ssh" -eq 1 ]; then
       local ssh_host="${VSCODE_SSH_HOST:-$(hostname)}"
-      vscode_url="vscode://vscode-remote/ssh-remote+${ssh_host}${abs_path}"
+      vscode_url="vscode://vscode-remote/ssh-remote+Lab-${ssh_host}${abs_path}"
     else
       vscode_url="vscode://file${abs_path}"
     fi
